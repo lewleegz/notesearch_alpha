@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteSearch</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Custom Title Bar -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <div class="app-logo">
+                    <i class="fas fa-search"></i>
+                    <span>NS</span>
+                </div>
+            </div>
+            <div class="title-bar-center">
+                <div class="window-title">NoteSearch</div>
+            </div>
+            <div class="title-bar-right">
+                <button id="minimize-btn" class="title-bar-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="maximize-btn" class="title-bar-btn">
+                    <i class="fas fa-square"></i>
+                </button>
+                <button id="close-btn" class="title-bar-btn close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Navigation Bar -->
+        <div class="nav-bar">
+            <!-- Tab Bar -->
+            <div class="tab-bar" id="tab-bar">
+                <div class="tabs-container" id="tabs-container">
+                    <div class="tab active" data-tab-id="tab-1">
+                        <span class="tab-title">New Tab</span>
+                        <button class="tab-close">×</button>
+                    </div>
+                </div>
+                <button class="new-tab-btn" id="new-tab-btn" title="New Tab">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="nav-controls">
+                <button id="back-btn" class="nav-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="forward-btn" class="nav-btn" disabled>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button id="refresh-btn" class="nav-btn">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button id="home-btn" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                </button>
+            </div>
+            
+            <div class="url-container">
+                <div class="url-bar">
+                    <i class="fas fa-lock url-icon"></i>
+                    <input type="text" id="url-input" placeholder="Search or enter web address..." autocomplete="off">
+                    <button id="search-btn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-controls">
+                <button id="notes-btn" class="action-btn" title="Notes">
+                    <i class="fas fa-sticky-note"></i>
+                </button>
+                <button id="email-btn" class="action-btn" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                <button id="settings-btn" class="action-btn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Browser Content -->
+            <div class="browser-container" id="browser-container">
+                <webview id="webview" 
+                         src="about:blank" 
+                         nodeintegration="false" 
+                         webpreferences="contextIsolation=true">
+                </webview>
+                
+                <!-- Home/Start Page -->
+                <div class="start-page" id="start-page">
+                    <div class="start-content">
+                        <div class="brand">
+                            <i class="fas fa-search brand-icon"></i>
+                            <h1>NoteSearch</h1>
+                            <p>Clean. Fast. Focused.</p>
+                        </div>
+                        
+                        <div class="search-container">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" id="home-search" placeholder="Search the web or enter a URL...">
+                            </div>
+                        </div>
+
+                        <div class="quick-links">
+                            <h3>Quick Access</h3>
+                            <div class="links-grid">
+                                <!-- Dynamic content will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar for Notes/Email -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3 id="sidebar-title">Notes</h3>
+                    <button id="sidebar-close" class="sidebar-close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <!-- Notes Panel -->
+                <div class="sidebar-content" id="notes-panel">
+                    <div class="notes-toolbar">
+                        <button id="new-note-btn" class="toolbar-btn">
+                            <i class="fas fa-plus"></i> New Note
+                        </button>
+                        <button id="save-note-btn" class="toolbar-btn">
+                            <i class="fas fa-save"></i> Save
+                        </button>
+                    </div>
+                    <div class="notes-list" id="notes-list">
+                        <!-- Notes will be dynamically added here -->
+                    </div>
+                    <div class="note-editor">
+                        <textarea id="note-content" placeholder="Start writing your note..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Email Panel -->
+                <div class="sidebar-content" id="email-panel" style="display: none;">
+                    <div class="email-toolbar">
+                        <button id="compose-email-btn" class="toolbar-btn">
+                            <i class="fas fa-pen"></i> Compose
+                        </button>
+                        <button id="refresh-email-btn" class="toolbar-btn">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="email-folders">
+                        <div class="folder-item active" data-folder="inbox">
+                            <i class="fas fa-inbox"></i> Inbox
+                        </div>
+                        <div class="folder-item" data-folder="sent">
+                            <i class="fas fa-paper-plane"></i> Sent
+                        </div>
+                        <div class="folder-item" data-folder="drafts">
+                            <i class="fas fa-file-alt"></i> Drafts
+                        </div>
+                    </div>
+                    <div class="email-list" id="email-list">
+                        <div class="email-placeholder">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <p>Email integration coming soon...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loading-indicator">
+            <div class="loading-bar"></div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="settings-modal" id="settings-modal">
+            <div class="settings-backdrop"></div>
+            <div class="settings-container">
+                <div class="settings-header">
+                    <h2>Settings</h2>
+                    <button id="settings-close" class="settings-close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="settings-sidebar">
+                        <div class="settings-nav">
+                            <button class="settings-nav-item active" data-section="appearance">
+                                <i class="fas fa-palette"></i> Appearance
+                            </button>
+                            <button class="settings-nav-item" data-section="browser">
+                                <i class="fas fa-globe"></i> Browser
+                            </button>
+                            <button class="settings-nav-item" data-section="privacy">
+                                <i class="fas fa-shield-alt"></i> Privacy & Security
+                            </button>
+                            <button class="settings-nav-item" data-section="email">
+                                <i class="fas fa-envelope"></i> Email
+                            </button>
+                            <button class="settings-nav-item" data-section="vpn">
+                                <i class="fas fa-globe-americas"></i> VPN
+                            </button>
+                            <button class="settings-nav-item" data-section="extensions">
+                                <i class="fas fa-puzzle-piece"></i> Extensions
+                            </button>
+                            <button class="settings-nav-item" data-section="advanced">
+                                <i class="fas fa-cogs"></i> Advanced
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-main">
+                        <!-- Appearance Settings -->
+                        <div class="settings-section active" id="appearance-section">
+                            <h3>Appearance</h3>
+                            
+                            <div class="setting-group">
+                                <label>Theme</label>
+                                <select id="theme-select">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>Tab Layout</label>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="tabLayout" value="horizontal" checked> Horizontal</label>
+                                    <label><input type="radio" name="tabLayout" value="vertical"> Vertical</label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>Default Zoom</label>
+                                <div class="zoom-controls">
+                                    <button id="zoom-decrease">-</button>
+                                    <span id="zoom-display">100%</span>
+                                    <button id="zoom-increase">+</button>
+                                    <input type="range" id="zoom-slider" min="50" max="200" value="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Browser Settings -->
+                        <div class="settings-section" id="browser-section">
+                            <h3>Browser</h3>
+                            
+                            <div class="setting-group">
+                                <label>Search Engine</label>
+                                <select id="search-engine-select">
+                                    <option value="google">Google</option>
+                                    <option value="bing">Bing</option>
+                                    <option value="duckduckgo">DuckDuckGo</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-group" id="custom-search-group" style="display: none;">
+                                <label>Custom Search URL</label>
+                                <input type="text" id="custom-search-url" placeholder="https://example.com/search?q=%s">
+                                <small>Use %s as placeholder for search terms</small>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>Homepage</label>
+                                <select id="homepage-select">
+                                    <option value="start">Start Page</option>
+                                    <option value="blank">Blank Page</option>
+                                    <option value="custom">Custom URL</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-group" id="custom-homepage-group" style="display: none;">
+                                <label>Custom Homepage URL</label>
+                                <input type="text" id="custom-homepage-url" placeholder="https://example.com">
+                            </div>
+                        </div>
+
+                        <!-- Privacy & Security Settings -->
+                        <div class="settings-section" id="privacy-section">
+                            <h3>Privacy & Security</h3>
+                            
+                            <div class="setting-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="adblocker-enabled" checked>
+                                    <span class="checkmark"></span>
+                                    Enable Ad Blocker
+                                </label>
+                                <div class="adblocker-stats" id="adblocker-stats">
+                                    <small>Blocked 0 ads and trackers</small>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>Cookie Policy</label>
+                                <select id="cookie-policy-select">
+                                    <option value="allow-all">Allow All Cookies</option>
+                                    <option value="block-third-party">Block Third-Party Cookies</option>
+                                    <option value="block-all">Block All Cookies</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Email Settings -->
+                        <div class="settings-section" id="email-section">
+                            <h3>Email Configuration</h3>
+                            
+                            <div class="email-status" id="email-status">
+                                <div class="status-indicator disconnected"></div>
+                                <span>Not Connected</span>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>Email Provider</label>
+                                <select id="email-provider-select">
+                                    <option value="">Select Provider</option>
+                                    <option value="gmail">Gmail</option>
+                                    <option value="outlook">Outlook</option>
+                                    <option value="yahoo">Yahoo</option>
+                                    <option value="custom">Custom IMAP/SMTP</option>
+                                </select>
+                            </div>
+                            
+                            <div class="email-config" id="email-config" style="display: none;">
+                                <div class="setting-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="email-address" placeholder="your.email@example.com">
+                                </div>
+                                
+                                <div class="setting-group">
+                                    <label>Password</label>
+                                    <input type="password" id="email-password" placeholder="Your email password">
+                                </div>
+                                
+                                <div class="custom-email-config" id="custom-email-config" style="display: none;">
+                                    <div class="setting-group">
+                                        <label>IMAP Server</label>
+                                        <input type="text" id="imap-host" placeholder="imap.example.com">
+                                    </div>
+                                    <div class="setting-group">
+                                        <label>SMTP Server</label>
+                                        <input type="text" id="smtp-host" placeholder="smtp.example.com">
+                                    </div>
+                                </div>
+                                
+                                <div class="email-actions">
+                                    <button id="email-connect-btn" class="primary-btn">Connect</button>
+                                    <button id="email-disconnect-btn" class="secondary-btn" style="display: none;">Disconnect</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VPN Settings -->
+                        <div class="settings-section" id="vpn-section">
+                            <h3>VPN Configuration</h3>
+                            
+                            <div class="vpn-status" id="vpn-status">
+                                <div class="status-indicator disconnected"></div>
+                                <span>Disconnected</span>
+                                <div class="vpn-location" id="vpn-location"></div>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="vpn-enabled">
+                                    <span class="checkmark"></span>
+                                    Enable VPN
+                                </label>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label>VPN Server</label>
+                                <select id="vpn-server-select">
+                                    <option value="auto">Auto Select</option>
+                                </select>
+                            </div>
+                            
+                            <div class="vpn-actions">
+                                <button id="vpn-connect-btn" class="primary-btn">Connect</button>
+                                <button id="vpn-disconnect-btn" class="secondary-btn" style="display: none;">Disconnect</button>
+                            </div>
+                        </div>
+
+                        <!-- Extensions Settings -->
+                        <div class="settings-section" id="extensions-section">
+                            <h3>Extensions</h3>
+                            
+                            <div class="extensions-list" id="extensions-list">
+                                <div class="no-extensions">
+                                    <i class="fas fa-puzzle-piece" style="font-size: 48px; opacity: 0.3;"></i>
+                                    <p>No extensions installed</p>
+                                </div>
+                            </div>
+                            
+                            <div class="extension-actions">
+                                <button id="install-extension-btn" class="primary-btn">
+                                    <i class="fas fa-plus"></i> Install Extension
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Settings -->
+                        <div class="settings-section" id="advanced-section">
+                            <h3>Advanced</h3>
+                            
+                            <div class="setting-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="hardware-acceleration" checked>
+                                    <span class="checkmark"></span>
+                                    Hardware Acceleration
+                                </label>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="developer-mode">
+                                    <span class="checkmark"></span>
+                                    Developer Mode
+                                </label>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notes-autosave" checked>
+                                    <span class="checkmark"></span>
+                                    Auto-save Notes
+                                </label>
+                            </div>
+                            
+                            <div class="danger-zone">
+                                <h4>Danger Zone</h4>
+                                <button id="reset-settings-btn" class="danger-btn">Reset All Settings</button>
+                                <button id="clear-data-btn" class="danger-btn">Clear All Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+========================================
+         NoteSearch Browser v1.0.0
+           Installation Instructions
+========================================
+
+NoteSearch is a modern browser with integrated notes, email, VPN, and search capabilities.
+
+========================================
+AVAILABLE PACKAGES
+========================================
+
+LINUX:
+- NoteSearch-1.0.0-x86_64.AppImage    (64-bit Intel/AMD)
+- NoteSearch-1.0.0-arm64.AppImage     (64-bit ARM)
+
+WINDOWS:
+- NoteSearch-1.0.0.exe                (Universal installer)
+- NoteSearch-1.0.0-x64.exe            (64-bit installer)
+- NoteSearch-1.0.0-ia32.exe           (32-bit installer)
+
+MACOS:
+- NoteSearch-1.0.0-x64.zip            (Intel Mac)
+- NoteSearch-1.0.0-arm64.zip          (Apple Silicon)
+
+========================================
+INSTALLATION INSTRUCTIONS
+========================================
+
+LINUX INSTALLATION:
+------------------
+
+Option 1: AppImage (Recommended)
+1. Download the appropriate AppImage file:
+   - For Intel/AMD 64-bit: NoteSearch-1.0.0-x86_64.AppImage
+   - For ARM 64-bit: NoteSearch-1.0.0-arm64.AppImage
+
+2. Make the file executable:
+   chmod +x NoteSearch-1.0.0-*.AppImage
+
+3. Run the application:
+   ./NoteSearch-1.0.0-*.AppImage
+
+Option 2: System Integration (Optional)
+1. Move AppImage to a permanent location:
+   sudo mv NoteSearch-1.0.0-*.AppImage /opt/notesearch/
+   
+2. Create desktop entry:
+   sudo nano /usr/share/applications/notesearch.desktop
+   
+   Add the following content:
+   [Desktop Entry]
+   Name=NoteSearch
+   Comment=A modern browser with integrated notes and search capabilities
+   Exec=/opt/notesearch/NoteSearch-1.0.0-x86_64.AppImage
+   Icon=/opt/notesearch/logo.png
+   Terminal=false
+   Type=Application
+   Categories=Network;WebBrowser;
+
+WINDOWS INSTALLATION:
+-------------------
+
+Option 1: Universal Installer (Recommended)
+1. Download: NoteSearch-1.0.0.exe
+2. Double-click the installer
+3. Follow the installation wizard
+4. Choose installation directory (default: C:\Program Files\NoteSearch)
+5. Select desktop shortcut creation
+6. Complete installation
+7. Launch from Start Menu or desktop shortcut
+
+Option 2: Architecture-Specific Installer
+1. For 64-bit Windows: Download NoteSearch-1.0.0-x64.exe
+2. For 32-bit Windows: Download NoteSearch-1.0.0-ia32.exe
+3. Follow same installation steps as above
+
+System Requirements:
+- Windows 10 or later
+- 2GB RAM minimum
+- 500MB disk space
+
+MACOS INSTALLATION:
+------------------
+
+1. Download the appropriate ZIP file:
+   - For Intel Macs: NoteSearch-1.0.0-x64.zip
+   - For Apple Silicon (M1/M2): NoteSearch-1.0.0-arm64.zip
+
+2. Extract the ZIP file:
+   - Double-click the ZIP file to extract
+   - This will create a NoteSearch.app file
+
+3. Install the application:
+   - Drag NoteSearch.app to your Applications folder
+   
+4. First launch (Important):
+   - Right-click NoteSearch.app and select "Open"
+   - Click "Open" in the security dialog
+   - This is required for unsigned applications
+
+5. Subsequent launches:
+   - Use Launchpad or Applications folder
+   - Or add to Dock for quick access
+
+System Requirements:
+- macOS 10.15 (Catalina) or later
+- 2GB RAM minimum
+- 500MB disk space
+
+========================================
+ARCHITECTURE DETECTION
+========================================
+
+HOW TO DETERMINE YOUR ARCHITECTURE:
+
+Linux:
+------
+Run in terminal: uname -m
+- x86_64 = Use x86_64.AppImage
+- aarch64 or arm64 = Use arm64.AppImage
+
+Windows:
+--------
+1. Open Settings > System > About
+2. Look for "System type":
+   - 64-bit operating system = Use x64.exe
+   - 32-bit operating system = Use ia32.exe
+   - Universal installer works for both = Use .exe
+
+macOS:
+------
+1. Click Apple menu > About This Mac
+2. Look for "Chip" or "Processor":
+   - Intel = Use x64.zip
+   - Apple M1/M2/M3 = Use arm64.zip
+
+========================================
+FIRST RUN CONFIGURATION
+========================================
+
+After installation, NoteSearch will open with a welcome screen.
+
+BASIC SETUP:
+1. Choose your preferred theme (Light/Dark/Auto)
+2. Set default search engine
+3. Configure tab layout (Horizontal/Vertical)
+
+OPTIONAL FEATURES:
+1. Email Setup:
+   - Go to Settings > Email
+   - Choose provider (Gmail, Outlook, Yahoo, or Custom)
+   - Enter credentials to sync email
+
+2. VPN Configuration:
+   - Go to Settings > VPN
+   - Select server location
+   - Enable VPN for privacy
+
+3. Extension Installation:
+   - Go to Settings > Extensions
+   - Click "Install Extension"
+   - Select Chrome extension folder
+
+========================================
+TROUBLESHOOTING
+========================================
+
+LINUX ISSUES:
+- Permission denied: chmod +x NoteSearch-*.AppImage
+- Missing dependencies: Install libgtk-3-0 libxss1 libasound2
+
+WINDOWS ISSUES:
+- Windows Defender warning: Click "More info" > "Run anyway"
+- Installation blocked: Run as Administrator
+
+MACOS ISSUES:
+- "Cannot be opened" error: Right-click > Open, then click Open
+- App damaged error: Run: xattr -cr /Applications/NoteSearch.app
+
+GENERAL:
+- Settings not saving: Check write permissions
+- Email not connecting: Verify credentials and enable app passwords
+- VPN not working: Try different server locations
+
+========================================
+UNINSTALLATION
+========================================
+
+LINUX:
+- Simply delete the AppImage file
+- Remove desktop entry if created: /usr/share/applications/notesearch.desktop
+
+WINDOWS:
+- Use "Add or Remove Programs" in Windows Settings
+- Or run uninstaller from Start Menu
+
+MACOS:
+- Drag NoteSearch.app to Trash
+- Empty Trash to complete removal
+
+========================================
+SUPPORT & UPDATES
+========================================
+
+For support, bug reports, or feature requests:
+- GitHub: https://github.com/notesearch/notesearch
+- Email: contact@notesearch.com
+
+Updates will be available through the same download channels.
+The application includes auto-update checking (can be disabled in settings).
+
+========================================
+LICENSE
+========================================
+
+NoteSearch is released under the MIT License.
+See LICENSE file for full terms and conditions.
+
+Copyright (c) 2024 NoteSearch Team
