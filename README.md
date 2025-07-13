@@ -18,15 +18,15 @@ A modern, minimalist browser with integrated notes, email, VPN, and search capab
 ### Linux
 - **x64 AppImage**: `NoteSearch-1.0.0-x86_64.AppImage`
 - **ARM64 AppImage**: `NoteSearch-1.0.0-arm64.AppImage`
+- **x64 deb**: `NoteSearch-1.0.0-x86_64.deb`
+- **ARM64 deb**: `NoteSearch-1.0.0-arm64.deb`
 
 ### Windows
 - **Universal Installer**: `NoteSearch-1.0.0.exe`
-- **64-bit Installer**: `NoteSearch-1.0.0-x64.exe`
-- **32-bit Installer**: `NoteSearch-1.0.0-ia32.exe`
 
 ### macOS
-- **Intel Mac**: `NoteSearch-1.0.0-x64.zip`
-- **Apple Silicon**: `NoteSearch-1.0.0-arm64.zip`
+
+      Coming soon...
 
 ## Installation
 
@@ -86,9 +86,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
-For support, bug reports, or feature requests:
-- Create an issue in this repository
-- Email: contact@notesearch.com
+For support, bug reports, or feature requests create an issue in this repository.
+
 
 ---
 
